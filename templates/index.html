@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        {% include 'includes/imports.html' %}
+
+        <title>{{title}}</title>
+    </head>
+
+    <body>
+        {% include 'includes/javascript.html' %}
+
+        <h1>{{title}}</h1>
+
+        <div class="container">
+            {% for segment in segments %}
+            <div class="box segment"
+                 id="{{segment}}-label">{{segment.replace('-', ' ')}}
+            </div>
+            <div class="box">
+                <span class="color-picker"
+                      id="{{segment}}"></span>
+            </div>
+            {% endfor %}
+        </div>
+
+    </body>
+
+</html>

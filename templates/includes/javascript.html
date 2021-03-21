@@ -1,0 +1,32 @@
+<script>
+    var direction = 'forwards'
+
+    $(document).ready(function () {
+        $('.color-picker').each(function (i, elem) {
+            var hueb = new Huebee(elem, {
+                notation: 'hex',
+                saturations: 3,
+                hues: 64,
+                shades: 1,
+                staticOpen: true,
+                setBGColor: `#${elem.id}-label`
+            });
+
+            hueb.on('change', function (color, hue, sat, lum) {
+                console.log(elem.id + ' color changed to: ' + hexToRGB(color))
+                // doFromRandom(elem.id, hexToRGB(color))
+                doSweep(elem.id, hexToRGB(color), direction)
+                if (direction == 'forwards') {
+                    direction = 'backwards'
+                } else {
+                    direction = 'forwards'
+                }
+            })
+            $.get(`/desk/segments/${elem.id}`, function (data) {
+                hueb.setColor(RGBToHex(data.colour))
+            });
+        });
+    })
+
+
+</script>

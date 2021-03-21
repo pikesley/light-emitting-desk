@@ -1,0 +1,16 @@
+[Unit]
+Description=Desk Webserver
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/rgb-desk/
+ExecStart=/bin/bash -lc 'sudo gunicorn -b 0.0.0.0:5000 webserver:app'
+Restart=always
+StandardInput=null
+StandardOutput=file:/var/log/webserver/webserver.log
+StandardError=file:/var/log/webserver/webserver.err
+KillMode=mixed
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+isort
+black
+pytest
+pylint
+pytest-random-order
+pytest-cov
+ipdb
+pylama
+pyyaml
+gunicorn
+Flask
+flask-cors

@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter");
+$principal-font: "Architects Daughter";
+$shim: 12px;
+$huebee-cursor: 16px;
+
+body {
+    font-family: $principal-font;
+    text-align: center;
+    background-color: darken(white, 20%);
+    padding: 40px;
+    background: url("/static/images/background.jpg");
+    // background-position: center;
+}
+
+h1 {
+    font-size: 3em;
+    opacity: 80%;
+}
+
+.segment {
+    font-size: 2em;
+    padding: $shim;
+    margin: $shim;
+}
+
+.color-picker {
+    display: none;
+}
+
+.huebee__cursor {
+    width: $huebee-cursor;
+    height: $huebee-cursor;
+}
+
+.huebee {
+    display: inline;
+}
+
+.huebee__container {
+    background: transparent;
+    border: 1px black solid;
+    background-color: darken(white, 30%);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr min-content;
+}
+
+.box {
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.segment {
+    opacity: 80%;
+}
