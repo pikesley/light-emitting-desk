@@ -62,7 +62,6 @@ class FakeDesk(list):
 
     def show(self):
         """Pretend to show the colours."""
-        # pass
 
 
 gamma = [

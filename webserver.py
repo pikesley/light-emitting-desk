@@ -1,13 +1,14 @@
 import json
 import os
-from pathlib import Path
 
+import redis
 from flask import Flask, render_template, request
 
 from desk import Desk
 from utils import conf
 
 app = Flask(__name__)
+app.redis = redis.Redis()
 
 desk_conf = conf["segments"]
 if "TEST_SEGMENTS" in os.environ:
@@ -33,7 +34,7 @@ def sweep_segment(segment_name):
         return {"error": "no data"}, 422
 
     if segment_name not in app.segments:
-        return {"error": "no such segment"}, 404
+        return {"error": f"no such segment `{segment_name}`"}, 404
 
     app.data = validate_sweep(request.get_json())
 
@@ -46,8 +47,7 @@ def sweep_segment(segment_name):
     segment = app.desk.segments[segment_name]
     segment.sweep(colour, delay=delay, direction=direction)
 
-    Path("data/segments").mkdir(parents=True, exist_ok=True)
-    Path("data/segments", segment_name).write_text(json.dumps(colour))
+    app.redis.set(f"colours/segments/{segment_name}", json.dumps(colour))
     return {"colour": colour, "status": "OK"}
 
 
@@ -67,8 +67,7 @@ def sweep_all():
     direction = app.data["direction"]
     app.desk.sweep(colour, delay=delay, direction=direction)
 
-    Path("data/").mkdir(parents=True, exist_ok=True)
-    Path("data/desk").write_text(json.dumps(colour))
+    app.redis.set("colours/desk", json.dumps(colour))
     return {"colour": colour, "status": "OK"}
 
 
@@ -76,10 +75,10 @@ def sweep_all():
 def current_segment_colour(segment_name):
     """Return the segment's colour."""
     try:
-        colour = Path("data/segments", segment_name).read_text()
-        return {"colour": json.loads(colour), "status": "OK"}
+        colour = json.loads(app.redis.get(f"colours/segments/{segment_name}"))
+        return {"colour": colour, "status": "OK"}
 
-    except FileNotFoundError:
+    except TypeError:
         return {"error": "no data about that segment"}, 404
 
 
@@ -87,10 +86,10 @@ def current_segment_colour(segment_name):
 def current_desk_colour():
     """Return the desk's colour."""
     try:
-        colour = Path("data/desk").read_text()
-        return {"colour": json.loads(colour), "status": "OK"}
+        colour = json.loads(app.redis.get("colours/desk"))
+        return {"colour": colour, "status": "OK"}
 
-    except FileNotFoundError:
+    except TypeError:
         return {"error": "no data for that"}, 404
 
 

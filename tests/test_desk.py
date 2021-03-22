@@ -30,6 +30,13 @@ class TestDesk(TestCase):
 
         self.assertEqual(desk[19], [255, 0, 0])
 
+    def test_fill(self):
+        """Test we can fill all the pixels."""
+        desk = Desk({"foo": [[0, 19]]})
+        desk.pixels = MagicMock()
+        desk.fill([255, 0, 0])
+        desk.pixels.assert_has_calls([call.fill([255, 0, 0]), call.show()])
+
     def test_sweep(self):
         """Test we can sweep across the whole desk."""
         desk = Desk({"back-of-desk": [[0, 4]], "monitor": [[9, 7], [6, 5]]})

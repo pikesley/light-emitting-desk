@@ -54,10 +54,10 @@ class TestSweepSegment(TestCase):
 
         self.assertEqual(response.status_code, 404)
 
-    #     # self.assertEqual(
-    #     #     json.loads(response.data),
-    #     #     {"error": "no data"},
-    #     # )
+        self.assertEqual(
+            json.loads(response.data),
+            {"error": "no such segment `bar`"},
+        )
 
     def test_with_no_data(self):
         """Test it rejects an empty payload."""
@@ -145,9 +145,7 @@ class TestSweepSegment(TestCase):
 
     def test_get_no_colour(self):
         """Test it's OK when there's no colour recorded."""
-        if os.path.exists("data/segments/foo"):
-            os.remove("data/segments/foo")
-
+        app.redis.delete("colours/segments/foo")
         client = app.test_client()
         response = client.get("/desk/segments/foo")
 

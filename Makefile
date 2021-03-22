@@ -56,6 +56,9 @@ sass: docker-only
 dev-install: docker-only
 	python -m pip install -r requirements-dev.txt
 
+redis:
+	service redis-server start
+
 push-code: docker-only clean
 	rsync --archive \
 		  --verbose \
@@ -77,7 +80,7 @@ set-python: pi-only
 
 apt-installs: pi-only
 	sudo apt-get update
-	sudo apt-get install -y python3-pip nginx
+	sudo apt-get install -y python3-pip nginx redis
 
 virtualhost: pi-only
 	sudo ln -sf $$(pwd)/etc/nginx/sites-available/default /etc/nginx/sites-enabled/

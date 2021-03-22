@@ -133,8 +133,7 @@ class TestSweepDesk(TestCase):
 
     def test_get_no_colour(self):
         """Test it's OK when there's no colour recorded."""
-        if os.path.exists("data/desk"):
-            os.remove("data/desk")
+        app.redis.delete("colours/desk")
 
         client = app.test_client()
         response = client.get("/desk/all")

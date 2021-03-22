@@ -6,3 +6,4 @@ gunicorn
 Flask
 flask-cors
 ipdb
+redis
