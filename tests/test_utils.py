@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from utils import gamma_correct, random_colour, total_pixels
+from utils import gamma_correct, random_colour, scale_colour, total_pixels
 
 fake_conf = {"segments": {"back-of-desk": [[0, 47]], "monitor": [[76, 99], [48, 75]]}}
 inverted_conf = {
@@ -45,3 +45,15 @@ def test_random_colour():
         weighted_colour = random_colour(127)
         for component in weighted_colour:
             assert 127 <= component <= 255
+
+
+def test_scale_colour():
+    """Test scaling a colour."""
+    cases = (
+        ([255, 255, 255], 1, [255, 255, 255]),
+        ([255, 255, 255], 0, [0, 0, 0]),
+        ([128, 200, 50], 0.5, [64, 100, 25]),
+    )
+
+    for colour, factor, expectation in cases:
+        assert scale_colour(colour, factor) == expectation

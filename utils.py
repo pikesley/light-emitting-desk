@@ -43,6 +43,14 @@ def random_colour(weighting=0):
     return [randint(weighting, 255), randint(weighting, 255), randint(weighting, 255)]
 
 
+def scale_colour(colour, factor):
+    """Scale a colour."""
+    scaled = []
+    for component in colour:
+        scaled.append(int(component * factor))
+    return scaled
+
+
 class FakeDesk(list):
     """Fake Desk for testing."""
 
