@@ -1,45 +1,52 @@
-@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter");
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue");
 body {
-  font-family: "Architects Daughter";
+  font-family: "Comic Neue";
   text-align: center;
   background-color: #cccccc;
   padding: 40px;
-  background: url("/static/images/background.jpg"); }
+  background: url("/static/images/background.jpg");
+}
 
 h1 {
   font-size: 3em;
-  opacity: 80%; }
+  opacity: 80%;
+}
 
-.segment {
+.mode-label {
   font-size: 2em;
-  padding: 12px;
-  margin: 12px; }
+  padding: 1rem;
+  margin: 1rem;
+  opacity: 80%;
+}
 
 .color-picker {
-  display: none; }
+  display: none;
+}
 
 .huebee__cursor {
-  width: 16px;
-  height: 16px; }
+  width: 0.5rem;
+  height: 0.5rem;
+}
 
 .huebee {
-  display: inline; }
+  display: inline;
+}
 
 .huebee__container {
   background: transparent;
   border: 1px black solid;
-  background-color: #b3b3b3; }
+  background-color: #b3b3b3;
+}
 
 .container {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 1fr min-content; }
+  grid-template-rows: 1fr min-content;
+}
 
 .box {
-  border-radius: 5px;
-  padding: 20px; }
-
-.segment {
-  opacity: 80%; }
+  border-radius: 10px;
+  padding: 1rem;
+}
 
 /*# sourceMappingURL=styles.css.map */

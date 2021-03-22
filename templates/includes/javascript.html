@@ -5,8 +5,9 @@
         $('.color-picker').each(function (i, elem) {
             var hueb = new Huebee(elem, {
                 notation: 'hex',
-                saturations: 3,
-                hues: 64,
+                saturations: 6,
+                hues: 128,
+                hue0: 20,
                 shades: 1,
                 staticOpen: true,
                 setBGColor: `#${elem.id}-label`
@@ -14,15 +15,14 @@
 
             hueb.on('change', function (color, hue, sat, lum) {
                 console.log(elem.id + ' color changed to: ' + hexToRGB(color))
-                // doFromRandom(elem.id, hexToRGB(color))
-                doSweep(elem.id, hexToRGB(color), direction)
+                doSweep(hexToRGB(color), direction)
                 if (direction == 'forwards') {
                     direction = 'backwards'
                 } else {
                     direction = 'forwards'
                 }
             })
-            $.get(`/desk/segments/${elem.id}`, function (data) {
+            $.get(`/desk/all`, function (data) {
                 hueb.setColor(RGBToHex(data.colour))
             });
         });

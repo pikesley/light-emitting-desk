@@ -18,6 +18,14 @@ class TestSegment(TestCase):
             [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
         )
 
+    def test_reversed_sectors(self):
+        """Test it understands backwards sectors."""
+        desk = MagicMock()
+        seg = Segment("foo", [[19, 10], [200, 198]], desk)
+        self.assertEqual(
+            seg.indeces, [19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 200, 199, 198]
+        )
+
     def test_sweeping(self):
         """Test it lights the right pixels."""
         desk = MagicMock()

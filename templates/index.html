@@ -13,15 +13,11 @@
         <h1>{{title}}</h1>
 
         <div class="container">
-            {% for segment in segments %}
-            <div class="box segment"
-                 id="{{segment}}-label">{{segment.replace('-', ' ')}}
-            </div>
+            <div class="box mode-label" id="desk-sweep-label">Sweep</div>
             <div class="box">
                 <span class="color-picker"
-                      id="{{segment}}"></span>
+                      id="desk-sweep"></span>
             </div>
-            {% endfor %}
         </div>
 
     </body>

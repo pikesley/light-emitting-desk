@@ -1,4 +1,5 @@
 import platform
+from collections import OrderedDict
 from pathlib import Path
 from random import randint
 
@@ -9,7 +10,7 @@ if "arm" in platform.platform():  # nocov
     from neopixel import NeoPixel  # pylint: disable=E0401
 
 
-conf = yaml.safe_load(Path("conf/conf.yaml").read_text())
+conf = OrderedDict(yaml.safe_load(Path("conf/conf.yaml").read_text()))
 
 
 def total_pixels():
@@ -17,8 +18,9 @@ def total_pixels():
     highest = 0
     for sector in conf["segments"].values():
         for limits in sector:
-            if limits[1] > highest:
-                highest = limits[1]
+            for limit in limits:
+                if limit > highest:
+                    highest = limit
 
     return highest + 1
 

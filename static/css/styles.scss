@@ -1,7 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter");
-$principal-font: "Architects Daughter";
-$shim: 12px;
-$huebee-cursor: 16px;
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue");
+
+$principal-font: "Comic Neue";
+$shim: 1rem;
+$huebee-cursor: 0.5rem;
+$corner-radius: 10px;
 
 body {
     font-family: $principal-font;
@@ -9,7 +11,6 @@ body {
     background-color: darken(white, 20%);
     padding: 40px;
     background: url("/static/images/background.jpg");
-    // background-position: center;
 }
 
 h1 {
@@ -17,10 +18,11 @@ h1 {
     opacity: 80%;
 }
 
-.segment {
+.mode-label {
     font-size: 2em;
     padding: $shim;
     margin: $shim;
+    opacity: 80%;
 }
 
 .color-picker {
@@ -49,10 +51,6 @@ h1 {
 }
 
 .box {
-    border-radius: 5px;
-    padding: 20px;
-}
-
-.segment {
-    opacity: 80%;
+    border-radius: $corner-radius;
+    padding: $shim;
 }

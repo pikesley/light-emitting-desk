@@ -24,9 +24,9 @@ class Converger:
                 new_colour = []
                 for k, component in enumerate(colour):
                     new_component = int(component + self.increments[j][k])
-                    if new_component > 255:
+                    if new_component > 255:  # nocov
                         new_component = 255
-                    if new_component < 0:
+                    if new_component < 0:  # nocov
                         new_component = 0
 
                     new_colour.append(new_component)

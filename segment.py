@@ -1,7 +1,7 @@
 from time import sleep
 
-from converger import Converger
-from utils import gamma_correct, random_colour
+# from converger import Converger
+from utils import gamma_correct
 
 
 class Segment:
@@ -13,7 +13,11 @@ class Segment:
 
         self.indeces = []
         for sector in sectors:
-            self.indeces.extend(list(range(sector[0], sector[1] + 1)))
+            step = offset = 1
+            if sector[0] > sector[1]:
+                step = offset = -1
+
+            self.indeces.extend(list(range(sector[0], sector[1] + offset, step)))
 
         self.desk = desk
 
@@ -30,16 +34,16 @@ class Segment:
             self.desk.show()
             sleep(delay)
 
-    def settle_from_random(self, colour, steps, delay=0.1):
-        """Set random pixels then converge on a single colour."""
-        initial_state = []
-        for _ in self.indeces:
-            initial_state.append(random_colour())
+    # def settle_from_random(self, colour, steps, delay=0.1):
+    #     """Set random pixels then converge on a single colour."""
+    #     initial_state = []
+    #     for _ in self.indeces:
+    #         initial_state.append(random_colour())
 
-        converger = Converger(initial_state, colour, steps)
+    #     converger = Converger(initial_state, colour, steps)
 
-        for frame in converger.frames():
-            for j, colour in enumerate(frame):
-                self.desk[j] = colour
-            self.desk.show()
-            sleep(delay)
+    #     for frame in converger.frames():
+    #         for j, colour in enumerate(frame):
+    #             self.desk[j] = colour
+    #         self.desk.show()
+    #         sleep(delay)

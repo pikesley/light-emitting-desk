@@ -1,25 +1,12 @@
-function doSweep(segment, colour, direction) {
+function doSweep(colour, direction) {
     $.ajax({
         type: "POST",
-        url: `/desk/segments/${segment}/sweep`,
+        url: `/desk/all/sweep`,
         data: JSON.stringify(
             {
                 'colour': colour,
-                'direction': direction
-            }
-        ),
-        contentType: 'application/json',
-    });
-}
-
-function doFromRandom(segment, colour) {
-    $.ajax({
-        type: "POST",
-        url: `/desk/segments/${segment}/from-random`,
-        data: JSON.stringify(
-            {
-                'colour': colour,
-                'steps': 32
+                'direction': direction,
+                'delay': 0.01
             }
         ),
         contentType: 'application/json',
