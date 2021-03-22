@@ -23,6 +23,11 @@ class Desk:
         """Override `x[i]`."""
         return self.pixels[index]
 
+    def fill(self, colour):
+        """Fill our pixels with a colour."""
+        self.pixels.fill(colour)
+        self.show()
+
     def show(self):
         """`show` the pixels."""
         self.pixels.show()
