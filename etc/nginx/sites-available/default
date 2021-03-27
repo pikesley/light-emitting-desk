@@ -7,8 +7,8 @@ server {
 
   error_page 502 /502.html;
   location = /502.html {
-          root /home/pi/rgb-desk/static/;
-          internal;
+    root /home/pi/rgb-desk/static/;
+    internal;
   }
 
   location / {
