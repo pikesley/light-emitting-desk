@@ -5,6 +5,12 @@ server {
   access_log /var/log/nginx/reverse-access.log;
   error_log /var/log/nginx/reverse-error.log;
 
+  error_page 502 /502.html;
+  location = /502.html {
+          root /home/pi/rgb-desk/static/;
+          internal;
+  }
+
   location / {
     proxy_pass http://127.0.0.1:5000;
   }
