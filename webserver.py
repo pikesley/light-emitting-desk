@@ -16,73 +16,38 @@ if "TEST_SEGMENTS" in os.environ:
 
 app.desk = Desk(desk_conf)
 app.segments = app.desk.segments
+app.mode_names = list(map(lambda x: x["name"], conf["modes"]))
 
 
 @app.route("/", methods=["GET"])
 def index():
     """Root endpoint."""
     if request.accept_mimetypes["text/html"]:
-        return render_template("index.html", title="RGB Desk", segments=app.segments)
+        return render_template("index.html", title="RGB Desk", modes=conf["modes"])
 
     return {"status": "OK"}
 
 
-@app.route("/desk/segments/<segment_name>/sweep", methods=["POST"])
-def sweep_segment(segment_name):
-    """Sweep a colour across a segment."""
-    if not request.content_length:
-        return {"error": "no data"}, 422
+@app.route("/desk/all/<mode>", methods=["POST"])
+def light_desk(mode):
+    """Light the desk using `mode`."""
+    if mode not in app.mode_names:
+        return {"error": f"`{mode}` is not a recognised mode"}, 404
 
-    if segment_name not in app.segments:
-        return {"error": f"no such segment `{segment_name}`"}, 404
-
-    app.data = validate_sweep(request.get_json())
+    app.data = validate_request(request)
 
     if "invalid" in app.data:
         return {"error": app.data["invalid"]}, 422
 
-    colour = app.data["colour"]
-    delay = app.data["delay"]
-    direction = app.data["direction"]
-    segment = app.desk.segments[segment_name]
-    segment.sweep(colour, delay=delay, direction=direction)
+    app.data["mode"] = mode
+    app.redis.rpush("jobs", json.dumps(app.data))
 
-    app.redis.set(f"colours/segments/{segment_name}", json.dumps(colour))
-    return {"colour": colour, "status": "OK"}
+    app.redis.set("colours/desk", json.dumps(app.data["colour"]))
+    app.redis.set("mode", mode)
+    return {"colour": app.data["colour"], "status": "OK"}
 
 
-@app.route("/desk/all/sweep", methods=["POST"])
-def sweep_all():
-    """Sweep a colour across the whole desk."""
-    if not request.content_length:
-        return {"error": "no data"}, 422
-
-    app.data = validate_sweep(request.get_json())
-
-    if "invalid" in app.data:
-        return {"error": app.data["invalid"]}, 422
-
-    colour = app.data["colour"]
-    delay = app.data["delay"]
-    direction = app.data["direction"]
-    app.desk.sweep(colour, delay=delay, direction=direction)
-
-    app.redis.set("colours/desk", json.dumps(colour))
-    return {"colour": colour, "status": "OK"}
-
-
-@app.route("/desk/segments/<segment_name>", methods=["GET"])
-def current_segment_colour(segment_name):
-    """Return the segment's colour."""
-    try:
-        colour = json.loads(app.redis.get(f"colours/segments/{segment_name}"))
-        return {"colour": colour, "status": "OK"}
-
-    except TypeError:
-        return {"error": "no data about that segment"}, 404
-
-
-@app.route("/desk/all", methods=["GET"])
+@app.route("/desk/colour", methods=["GET"])
 def current_desk_colour():
     """Return the desk's colour."""
     try:
@@ -93,11 +58,27 @@ def current_desk_colour():
         return {"error": "no data for that"}, 404
 
 
+@app.route("/desk/mode", methods=["GET"])
+def current_mode():
+    """Return the current mode."""
+    try:
+        mode = app.redis.get("mode").decode()
+        return {"mode": mode, "status": "OK"}
+
+    except AttributeError:
+        return {"error": "no data for that"}, 404
+
+
 # validators
 
 
-def validate_sweep(data):
+def validate_request(req):
     """Validate the data for a `sweep`."""
+    if not req.content_length:
+        return {"invalid": "no data"}
+
+    data = req.get_json()
+
     if "colour" not in data:
         data["invalid"] = "`colour` must be supplied"
         return data
@@ -164,3 +145,32 @@ def invalid_delay(delay):
 
 if __name__ == "__main__":  # nocov
     app.run(host="0.0.0.0", debug=True)
+
+
+# @app.route("/desk/segments/<segment_name>/sweep", methods=["POST"])
+# def sweep_segment(segment_name):
+#     """Sweep a colour across a segment."""
+#     if segment_name not in app.segments:
+#         return {"error": f"no such segment `{segment_name}`"}, 404
+
+#     app.data = validate_request(request)
+
+#     if "invalid" in app.data:
+#         return {"error": app.data["invalid"]}, 422
+
+#     app.data["target"] = segment_name
+#     app.data["method"] = "sweep"
+#     app.redis.rpush("jobs", json.dumps(app.data))
+
+#     app.redis.set(f"colours/segments/{segment_name}", json.dumps(app.data["colour"]))
+#     return {"colour": app.data["colour"], "status": "OK"}
+
+# @app.route("/desk/segments/<segment_name>", methods=["GET"])
+# def current_segment_colour(segment_name):
+#     """Return the segment's colour."""
+#     try:
+#         colour = json.loads(app.redis.get(f"colours/segments/{segment_name}"))
+#         return {"colour": colour, "status": "OK"}
+
+#     except TypeError:
+#         return {"error": "no data about that segment"}, 404

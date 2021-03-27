@@ -13,10 +13,10 @@ if "arm" in platform.platform():  # nocov
 conf = OrderedDict(yaml.safe_load(Path("conf/conf.yaml").read_text()))
 
 
-def total_pixels():
+def total_pixels(segment_data):
     """Calculate the total number of Pixels in play."""
     highest = 0
-    for sector in conf["segments"].values():
+    for sector in segment_data.values():
         for limits in sector:
             for limit in limits:
                 if limit > highest:
@@ -25,12 +25,14 @@ def total_pixels():
     return highest + 1
 
 
-def get_neopixels():
+def get_neopixels(segment_data):
     """Return real or fake pixels depending on our platform."""
     if "arm" in platform.platform():
-        return NeoPixel(board.D18, total_pixels(), auto_write=False)  # nocov
+        return NeoPixel(
+            board.D18, total_pixels(segment_data), auto_write=False
+        )  # nocov
     else:
-        return FakeDesk(total_pixels())
+        return FakeDesk(total_pixels(segment_data))
 
 
 def gamma_correct(colour):
@@ -62,6 +64,11 @@ class FakeDesk(list):
 
     def show(self):
         """Pretend to show the colours."""
+
+    def fill(self, colour):
+        """Pretend to fill the pixels."""
+        for i in range(self.length):
+            self[i] = colour
 
 
 gamma = [

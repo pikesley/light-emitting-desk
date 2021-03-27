@@ -1,7 +1,12 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, call, patch
 
-from desk import Desk
+with patch.dict(
+    "utils.conf",
+    {"segments": {"back-of-desk": [[0, 47]], "monitor": [[53, 60], [48, 52]]}},
+    clear=True,
+):
+    from desk import Desk
 
 
 class TestDesk(TestCase):
@@ -37,64 +42,8 @@ class TestDesk(TestCase):
         desk.fill([255, 0, 0])
         desk.pixels.assert_has_calls([call.fill([255, 0, 0]), call.show()])
 
-    def test_sweep(self):
-        """Test we can sweep across the whole desk."""
-        desk = Desk({"back-of-desk": [[0, 4]], "monitor": [[9, 7], [6, 5]]})
-        desk.pixels = MagicMock()
-        desk.sweep([0, 255, 0])
-
-        desk.pixels.assert_has_calls(
-            [
-                call.__setitem__(0, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(1, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(2, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(3, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(4, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(9, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(8, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(7, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(6, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(5, [0, 255, 0]),
-                call.show(),
-            ]
-        )
-
-    def test_reverse_sweep(self):
-        """Test we can sweep backwards across the whole desk."""
-        desk = Desk({"back-of-desk": [[0, 4]], "monitor": [[9, 7], [6, 5]]})
-        desk.pixels = MagicMock()
-        desk.sweep([0, 255, 0], direction="backwards")
-
-        desk.pixels.assert_has_calls(
-            [
-                call.__setitem__(5, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(6, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(7, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(8, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(9, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(4, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(3, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(2, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(1, [0, 255, 0]),
-                call.show(),
-                call.__setitem__(0, [0, 255, 0]),
-                call.show(),
-            ]
-        )
+    def test_light_up(self):
+        """Test it calls a LightMode."""
+        desk = Desk({"foo": [[0, 19]]})
+        desk.light_up([0, 0, 255], {"mode": "converge"})
+        # I'm not testing anything here wtf

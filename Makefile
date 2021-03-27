@@ -18,6 +18,7 @@ run: laptop-only
 		--volume $(shell pwd):/opt/${PROJECT} \
 		--volume ${HOME}/.ssh:/root/.ssh \
 		--publish 5000:5000 \
+		--publish 8000:80 \
 		--rm \
 		${ID} bash
 
@@ -36,7 +37,7 @@ format: docker-only black isort
 lint: docker-only
 	python -m pylama
 
-test: docker-only
+test: docker-only flush-redis
 	python -m pytest \
 		--random-order \
 		--verbose \
@@ -45,7 +46,10 @@ test: docker-only
 		--exitfirst \
 		--cov
 
-clean: docker-only
+flush-redis: docker-only redis
+	redis-cli flushall
+
+clean:
 	@find . -depth -name __pycache__ -exec rm -fr {} \;
 	@find . -depth -name .pytest_cache -exec rm -fr {} \;
 	@find . -depth -name ".coverage.*" -exec rm {} \;
@@ -59,16 +63,19 @@ dev-install: docker-only
 redis:
 	service redis-server start
 
+nginx:
+	ln -sf $$(pwd)/etc/nginx/sites-available/dev-default /etc/nginx/sites-enabled/default
+	service nginx restart
+
 push-code: docker-only clean
 	rsync --archive \
 		  --verbose \
-		  --exclude data \
 		  /opt/${PROJECT} \
 		  pi@${PIHOST}:
 
 # Pi targets
 
-setup: pi-only set-python apt-installs install install-systemd virtualhost
+setup: pi-only set-python apt-installs install system-install virtualhost
 	sudo reboot
 
 install: pi-only
@@ -90,9 +97,22 @@ prepare-logs: pi-only
 	sudo mkdir -p /var/log/webserver/
 	sudo chown pi /var/log/webserver/
 
-install-systemd: pi-only prepare-logs
+	sudo mkdir -p /var/log/worker/
+	sudo chown pi /var/log/worker/
+
+system-install: systemd restart-services
+
+systemd: pi-only prepare-logs
 	sudo systemctl enable -f /home/pi/${PROJECT}/etc/systemd/webserver.service
+	sudo systemctl enable -f /home/pi/${PROJECT}/etc/systemd/worker.service
+
+restart-services:
 	sudo service webserver restart
+	sudo service worker restart
+
+stop-services:
+	sudo service webserver stop
+	sudo service worker stop
 
 # Guardrails
 

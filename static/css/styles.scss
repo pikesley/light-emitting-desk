@@ -1,56 +1,64 @@
-@import url("https://fonts.googleapis.com/css2?family=Comic+Neue");
-
-$principal-font: "Comic Neue";
-$shim: 1rem;
-$huebee-cursor: 0.5rem;
-$corner-radius: 10px;
-
-body {
-    font-family: $principal-font;
-    text-align: center;
-    background-color: darken(white, 20%);
-    padding: 40px;
-    background: url("/static/images/background.jpg");
-}
+@use 'components/variables';
+@use 'components/colours';
+@use 'components/grid';
+@use 'components/fonts';
 
 h1 {
+    font-size: 6em;
+}
+
+#colour-picker {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#mode-picker {
     font-size: 3em;
-    opacity: 80%;
+    list-style: none;
+    text-align: center;
+
+    span {
+        display: block;
+    }
+
+    .active {
+        font-weight: bold;
+        ::before {
+            content: "» ";
+        }
+        ::after {
+            content: " «";
+        }
+    }
+
+    padding-top: variables.$shim;
+    padding-bottom: variables.$shim;
 }
 
-.mode-label {
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.button {
+    font-family: fonts.$default;
     font-size: 2em;
-    padding: $shim;
-    margin: $shim;
-    opacity: 80%;
+    font-weight: bold;
 }
 
-.color-picker {
-    display: none;
-}
+// .rgb {
+//     border-bottom: 1px dotted;
+// }
 
-.huebee__cursor {
-    width: $huebee-cursor;
-    height: $huebee-cursor;
-}
+// .red {
+//     border-color: red;
+// }
 
-.huebee {
-    display: inline;
-}
+// .green {
+//     border-color: green;
+// }
 
-.huebee__container {
-    background: transparent;
-    border: 1px black solid;
-    background-color: darken(white, 30%);
-}
-
-.container {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr min-content;
-}
-
-.box {
-    border-radius: $corner-radius;
-    padding: $shim;
-}
+// .blue {
+//     border-color: blue;
+// }

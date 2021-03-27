@@ -8,3 +8,30 @@ segments:
     - [181, 146]
     - [145, 130]
     - [129, 112]
+
+modes:
+  - name: sector-diverge
+    display-name: Diverge
+    description: Light each sector from the centre-out
+
+  - name: sweep
+    display-name: Sweep across
+    description: Sweep across the whole desk, alternately left-right and right-left
+
+  - name: converge
+    display-name: Converge
+    description: Light from both ends towards the middle
+
+  - name: spot-fill
+    display-name: Spot fill
+    description: Light random LEDs one-at-a time until they're all set
+
+  - name: direct-switch
+    display-name: Direct
+    description: Just switch all the lights to the given colour
+
+light-mode-defaults:
+  delay: 0.01  # default interval for light modes
+
+worker:
+  interval: 0.1

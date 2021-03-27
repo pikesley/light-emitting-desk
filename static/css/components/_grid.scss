@@ -1,0 +1,22 @@
+@use 'variables';
+
+body {
+    height: 100vh;
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-gap: 1rem;
+}
+
+header,
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    padding-top: variables.$shim;
+}

@@ -1,32 +1,62 @@
 <script>
     var direction = 'forwards'
+    var currentMode = '{{ modes[0]['name'] }}'
 
     $(document).ready(function () {
-        $('.color-picker').each(function (i, elem) {
-            var hueb = new Huebee(elem, {
-                notation: 'hex',
-                saturations: 6,
-                hues: 128,
-                hue0: 20,
-                shades: 1,
-                staticOpen: true,
-                setBGColor: `#${elem.id}-label`
-            });
+        {% include 'includes/picker.js' %}
 
-            hueb.on('change', function (color, hue, sat, lum) {
-                console.log(elem.id + ' color changed to: ' + hexToRGB(color))
-                doSweep(hexToRGB(color), direction)
-                if (direction == 'forwards') {
-                    direction = 'backwards'
-                } else {
-                    direction = 'forwards'
+        $.ajax("/desk/mode").done(
+            function (data) {
+                $(`#${data.mode}-select`).removeClass().addClass("active")
+            }
+        ).fail(
+            function (data) {
+                $("#{{ modes[0]['name'] }}-select").removeClass().addClass("active")
+            }
+        )
+    });
+
+    function setColour(colour) {
+        postColourChange([colour.red, colour.green, colour.blue], direction)
+
+        if (currentMode == "sweep") {
+            if (direction == 'forwards') {
+                direction = 'backwards'
+            } else {
+                direction = 'forwards'
+            }
+        }
+    }
+
+    function switchOff() {
+        postColourChange([0, 0, 0], direction)
+    }
+
+    function isBlack(colour) {
+        return colour[0] == 0 && colour[1] == 0 && colour[2] == 0
+    }
+
+    function postColourChange(colour, direction) {
+        $.ajax({
+            type: "POST",
+            url: `/desk/all/${currentMode}`,
+            data: JSON.stringify(
+                {
+                    'colour': colour,
+                    'direction': direction,
+                    'delay': 0.01
                 }
-            })
-            $.get(`/desk/all`, function (data) {
-                hueb.setColor(RGBToHex(data.colour))
-            });
+            ),
+            contentType: 'application/json',
         });
-    })
+    }
 
+    function setMode(mode) {
+        currentMode = mode;
+        $('#mode-picker').children().each(function (i, elem) {
+            $(elem).removeClass("active")
+        })
+        $(`#${mode}-select`).addClass("active")
+    }
 
 </script>

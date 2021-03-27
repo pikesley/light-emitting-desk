@@ -2,7 +2,7 @@ FROM python:3.7
 
 ENV SASS_VERSION 1.32.8
 
-RUN apt-get update && apt-get install -y make rsync curl redis
+RUN apt-get update && apt-get install -y make rsync curl redis nginx vim
 
 RUN cd /tmp && \
     curl \

@@ -1,9 +1,11 @@
 [Unit]
-Description=Desk Webserver
+Description=Desk Worker
+After=redis-server
 
 [Service]
 User=pi
 WorkingDirectory=/home/pi/rgb-desk/
+
 ExecStartPre=/bin/bash -c "\
     (while ! nc -z -v -w1 localhost 6379 > /dev/null; \
     do \
@@ -11,11 +13,12 @@ ExecStartPre=/bin/bash -c "\
         sleep 2; \
     done);"
 
-ExecStart=/bin/bash -lc 'gunicorn -b 0.0.0.0:5000 webserver:app'
+ExecStart=/bin/bash -lc 'sudo python worker.py'
+
 Restart=always
 StandardInput=null
-StandardOutput=file:/var/log/webserver/webserver.log
-StandardError=file:/var/log/webserver/webserver.err
+StandardOutput=file:/var/log/worker/worker.log
+StandardError=file:/var/log/worker/worker.err
 KillMode=mixed
 TimeoutStopSec=5
 

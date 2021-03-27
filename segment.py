@@ -33,17 +33,3 @@ class Segment:
             self.desk[i] = colour
             self.desk.show()
             sleep(delay)
-
-    # def settle_from_random(self, colour, steps, delay=0.1):
-    #     """Set random pixels then converge on a single colour."""
-    #     initial_state = []
-    #     for _ in self.indeces:
-    #         initial_state.append(random_colour())
-
-    #     converger = Converger(initial_state, colour, steps)
-
-    #     for frame in converger.frames():
-    #         for j, colour in enumerate(frame):
-    #             self.desk[j] = colour
-    #         self.desk.show()
-    #         sleep(delay)

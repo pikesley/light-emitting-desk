@@ -3,25 +3,32 @@ import os
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
+import redis
+
 with patch.dict(os.environ, {"TEST_SEGMENTS": json.dumps({"foo": [[0, 1]]})}):
     from webserver import app
+    from worker import Worker
 
 headers = {"Accept": "application/json", "Content-type": "application/json"}
+redis = redis.Redis()
+worker = Worker()
+worker.desk.light_up = MagicMock()
 
 
-class TestSweepDesk(TestCase):
+class TestSweep(TestCase):
     """Test `sweep` across the whole desk."""
+
+    def setUp(self):
+        """Do some initialisation."""
+        redis.flushall()
 
     def test_easy_sweep(self):
         """Test the simple case."""
         client = app.test_client()
-        app.desk.sweep = MagicMock()
         data = json.dumps({"colour": [123, 123, 0]})
         response = client.post("/desk/all/sweep", headers=headers, data=data)
 
-        app.desk.sweep.assert_called_with(
-            [123, 123, 0], delay=0.01, direction="forwards"
-        )
+        worker.poll()
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
@@ -31,15 +38,12 @@ class TestSweepDesk(TestCase):
     def test_with_parameters(self):
         """Test with params."""
         client = app.test_client()
-        app.desk.sweep = MagicMock()
         data = json.dumps(
             {"colour": [10, 20, 30], "direction": "backwards", "delay": 0.1}
         )
         response = client.post("/desk/all/sweep", headers=headers, data=data)
 
-        app.desk.sweep.assert_called_with(
-            [10, 20, 30], delay=0.1, direction="backwards"
-        )
+        worker.poll()
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
@@ -123,7 +127,7 @@ class TestSweepDesk(TestCase):
         client = app.test_client()
         data = json.dumps({"colour": [12, 34, 56]})
         client.post("/desk/all/sweep", headers=headers, data=data)
-        response = client.get("/desk/all")
+        response = client.get("/desk/colour")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
@@ -136,7 +140,7 @@ class TestSweepDesk(TestCase):
         app.redis.delete("colours/desk")
 
         client = app.test_client()
-        response = client.get("/desk/all")
+        response = client.get("/desk/colour")
 
         self.assertEqual(response.status_code, 404)
         self.assertEqual(

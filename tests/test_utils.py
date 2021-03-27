@@ -11,13 +11,18 @@ inverted_conf = {
 @patch.dict("utils.conf", fake_conf, clear=True)
 def test_total_pixels():
     """Test it calculates the correct number of Pixels."""
-    assert total_pixels() == 100
+    assert (
+        total_pixels({"back-of-desk": [[0, 27]], "monitor": [[56, 67], [28, 55]]}) == 68
+    )
 
 
 @patch.dict("utils.conf", inverted_conf, clear=True)
 def test_total_pixels_when_inverted():
     """Test it gets the correct Pixel-count when the direction is reversed."""
-    assert total_pixels() == 100
+    assert (
+        total_pixels({"back-of-desk": [[0, 47]], "monitor": [[108, 76], [75, 44]]})
+        == 109
+    )
 
 
 def test_gamma_correction():
