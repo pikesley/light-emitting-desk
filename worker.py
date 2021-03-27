@@ -4,8 +4,8 @@ from time import sleep
 
 import redis
 
-from desk import Desk
-from utils import conf
+from rgb_desk.desk import Desk
+from rgb_desk.utils import conf
 
 
 class Worker:

@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from desk import Desk
-from light_modes import DirectSwitch
+from rgb_desk.desk import Desk
+from rgb_desk.light_modes import DirectSwitch
 
 
 class TestDirectSwitch(TestCase):

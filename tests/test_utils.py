@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
-from utils import gamma_correct, random_colour, scale_colour, total_pixels
+from rgb_desk.utils import (gamma_correct, random_colour, scale_colour,
+                            total_pixels)
 
 fake_conf = {"segments": {"back-of-desk": [[0, 47]], "monitor": [[76, 99], [48, 75]]}}
 inverted_conf = {
@@ -8,7 +9,7 @@ inverted_conf = {
 }
 
 
-@patch.dict("utils.conf", fake_conf, clear=True)
+@patch.dict("rgb_desk.utils.conf", fake_conf, clear=True)
 def test_total_pixels():
     """Test it calculates the correct number of Pixels."""
     assert (
@@ -16,7 +17,7 @@ def test_total_pixels():
     )
 
 
-@patch.dict("utils.conf", inverted_conf, clear=True)
+@patch.dict("rgb_desk.utils.conf", inverted_conf, clear=True)
 def test_total_pixels_when_inverted():
     """Test it gets the correct Pixel-count when the direction is reversed."""
     assert (

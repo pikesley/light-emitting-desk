@@ -1,7 +1,6 @@
 from time import sleep
 
-# from converger import Converger
-from utils import gamma_correct
+from rgb_desk.utils import gamma_correct
 
 
 class Segment:

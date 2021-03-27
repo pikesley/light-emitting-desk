@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, call
 
-from segment import Segment
+from rgb_desk.segment import Segment
 
 
 class TestSegment(TestCase):

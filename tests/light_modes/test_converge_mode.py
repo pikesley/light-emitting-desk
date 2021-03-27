@@ -1,8 +1,8 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, call
 
-from desk import Desk
-from light_modes import Converge
+from rgb_desk.desk import Desk
+from rgb_desk.light_modes import Converge
 
 
 class TestConverge(TestCase):

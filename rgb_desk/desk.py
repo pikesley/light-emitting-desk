@@ -1,10 +1,9 @@
 import re
 from collections import OrderedDict
 
-import light_modes
-# from light_modes import Converger, SectorDiverger, SpotFiller, Sweeper
-from segment import Segment
-from utils import get_neopixels
+import rgb_desk.light_modes
+from rgb_desk.segment import Segment
+from rgb_desk.utils import get_neopixels
 
 
 class Desk:
@@ -57,7 +56,7 @@ class Desk:
 
 def get_class(name):
     """Turn a string into a ClassName."""
-    return getattr(light_modes, to_camel_case(name))
+    return getattr(rgb_desk.light_modes, to_camel_case(name))
 
 
 def to_camel_case(snake_case):
@@ -67,42 +66,3 @@ def to_camel_case(snake_case):
         name += word.title()
 
     return name
-
-
-# def pairs_from_list(lights):
-#     """Generate a list of pairs to enable from-each-end lighting."""
-#     length = len(lights)
-#     half = int(length / 2)
-#     offset = 0
-
-#     centre = None
-#     if length % 2 == 1:
-#         centre = lights[half]
-#         offset = 1
-
-#     left = lights[:half]
-
-#     rh_start = half + offset
-#     right = reversed(lights[rh_start:])
-
-#     pairs = list(map(list, zip(left, right)))
-
-#     if centre:
-#         pairs.append([centre])
-
-#     return pairs
-
-
-# def divergence_sequence_for_sectors(sectors):
-#     """Generate a sequence for divergent lighting per-sector."""
-#     sequence = []
-#     pairs = map(pairs_from_list, sectors)
-#     for items in pairs:
-#         for j, pair in enumerate(reversed(items)):
-#             try:
-#                 sequence[j].extend(pair)
-#             except IndexError:
-#                 sequence.append(pair)
-
-#     # sort the member lists
-#     return list(map(sorted, sequence))

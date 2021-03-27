@@ -4,8 +4,8 @@ import os
 import redis
 from flask import Flask, render_template, request
 
-from desk import Desk
-from utils import conf
+from rgb_desk.desk import Desk
+from rgb_desk.utils import conf
 
 app = Flask(__name__)
 app.redis = redis.Redis()
