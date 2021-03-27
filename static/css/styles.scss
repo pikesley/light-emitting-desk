@@ -15,12 +15,7 @@ h1 {
 
 #mode-picker {
     font-size: 3em;
-    list-style: none;
     text-align: center;
-
-    span {
-        display: block;
-    }
 
     .active {
         font-weight: bold;
@@ -46,19 +41,3 @@ a {
     font-size: 2em;
     font-weight: bold;
 }
-
-// .rgb {
-//     border-bottom: 1px dotted;
-// }
-
-// .red {
-//     border-color: red;
-// }
-
-// .green {
-//     border-color: green;
-// }
-
-// .blue {
-//     border-color: blue;
-// }

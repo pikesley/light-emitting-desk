@@ -10,21 +10,24 @@
     <body>
         {% include 'includes/javascript.html' %}
 
-        <header class="main-head">
+        <header>
             <h1>
                 {{title}}
             </h1>
         </header>
 
         <main>
-            <div id="mode-picker">
+            <ul id="mode-picker">
                 {% for mode in modes %}
-                <span id="{{ mode['name'] }}-select"><a href='#'
+                <li id="{{ mode['name'] }}-select">
+                    <a href='#'
                        class="shake-little mode-select"
                        title="{{ mode['description'] }}"
-                       onclick="setMode('{{ mode['name'] }}')">{{ mode['display-name'] }}</a></span>
+                       onclick="setMode('{{ mode['name'] }}')">{{ mode['display-name']
+                        }}</a>
+                </li>
                 {% endfor %}
-            </div>
+            </ul>
 
             <div id="colour-picker"></div>
         </main>
@@ -35,4 +38,5 @@
             </button>
         </footer>
     </body>
+
 </html>
