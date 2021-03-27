@@ -16,7 +16,7 @@ colourPicker.on('input:end', function (colour) {
 })
 
 colourPicker.on('mount', function (picker) {
-    $.get("/desk/all", function (data) {
+    $.get("/desk/colour", function (data) {
         colour = data.colour
         if (isBlack(colour)) {
             colour = [255, 255, 255]
