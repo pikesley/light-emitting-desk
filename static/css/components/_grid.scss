@@ -1,5 +1,9 @@
 @use 'variables';
 
+html {
+    overflow: auto;
+}
+
 body {
     height: 100vh;
 }
@@ -19,4 +23,10 @@ footer {
 
 footer {
     padding-top: variables.$shim;
+}
+
+#colour-picker {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
 }

@@ -1,13 +1,20 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=New+Tegomin");
 body {
-  color: #333333;
-  background-color: white;
+  color: #418141;
+  background-color: #fba238;
 }
 
 .button {
-  background-color: gray;
-  color: #e6e6e6;
+  background-color: #418141;
+  color: #fba238;
+}
+.button:hover {
+  color: #bd5334;
+}
+
+html {
+  overflow: auto;
 }
 
 body {
@@ -31,30 +38,30 @@ footer {
   padding-top: 6rem;
 }
 
-body {
-  font-family: "New Tegomin";
-  text-transform: lowercase;
-}
-
-h1 {
-  font-size: 6em;
-}
-
 #colour-picker {
   display: flex;
   justify-content: center;
   cursor: pointer;
 }
 
+body {
+  font-family: "New Tegomin";
+  text-transform: lowercase;
+}
+
+.button {
+  font-family: "New Tegomin";
+}
+
+h1 {
+  font-size: 6rem;
+}
+
 #mode-picker {
-  font-size: 3em;
-  list-style: none;
+  font-size: 3rem;
   text-align: center;
   padding-top: 6rem;
   padding-bottom: 6rem;
-}
-#mode-picker span {
-  display: block;
 }
 #mode-picker .active {
   font-weight: bold;
@@ -65,16 +72,18 @@ h1 {
 #mode-picker .active ::after {
   content: " «";
 }
-
-a {
+#mode-picker a {
   text-decoration: none;
   color: inherit;
 }
+#mode-picker a:hover {
+  color: #bd5334;
+}
 
 .button {
-  font-family: "New Tegomin";
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: bold;
+  border: none;
 }
 
 /*# sourceMappingURL=styles.css.map */

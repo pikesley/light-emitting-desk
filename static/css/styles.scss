@@ -4,23 +4,12 @@
 @use 'components/fonts';
 
 h1 {
-    font-size: 6em;
-}
-
-#colour-picker {
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
+    font-size: 6rem;
 }
 
 #mode-picker {
-    font-size: 3em;
-    list-style: none;
+    font-size: 3rem;
     text-align: center;
-
-    span {
-        display: block;
-    }
 
     .active {
         font-weight: bold;
@@ -34,31 +23,19 @@ h1 {
 
     padding-top: variables.$shim;
     padding-bottom: variables.$shim;
-}
 
-a {
-    text-decoration: none;
-    color: inherit;
+    a {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            color: colours.$secondary;
+        }
+    }
 }
 
 .button {
-    font-family: fonts.$default;
-    font-size: 2em;
+    font-size: 2rem;
     font-weight: bold;
+    border: none;
 }
-
-// .rgb {
-//     border-bottom: 1px dotted;
-// }
-
-// .red {
-//     border-color: red;
-// }
-
-// .green {
-//     border-color: green;
-// }
-
-// .blue {
-//     border-color: blue;
-// }

@@ -1,10 +1,12 @@
-// @import url("https://fonts.googleapis.com/css2?family=Amatic+SC");
 @import url("https://fonts.googleapis.com/css2?family=New+Tegomin");
 
-// $default: "Amatic SC";
-$default: "New Tegomin";
+$primary: "New Tegomin";
 
 body {
-    font-family: $default;
+    font-family: $primary;
     text-transform: lowercase;
+}
+
+.button {
+    font-family: $primary;
 }
