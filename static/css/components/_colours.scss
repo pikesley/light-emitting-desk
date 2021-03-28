@@ -1,13 +1,22 @@
-$primary: lighten(black, 20%);
-$grey: darken(white, 50%);
-$lightgrey: darken(white, 10%);
+// https://twitter.com/colorschemez/status/1375965842022658051
+$butterscotch: rgb(251, 162, 56);
+$terracotta: rgb(189, 83, 52);
+$forestgreen: rgb(65, 129, 65);
+
+$primary: $forestgreen;
+$secondary: $terracotta;
+$tertiary: $butterscotch;
 
 body {
     color: $primary;
-    background-color: white;
+    background-color: $tertiary;
 }
 
 .button {
-    background-color: $grey;
-    color: $lightgrey;
+    background-color: $primary;
+    color: $tertiary;
+
+    &:hover {
+        color: $secondary;
+    }
 }
