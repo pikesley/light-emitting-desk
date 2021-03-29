@@ -1,6 +1,6 @@
 var colourPicker = new iro.ColorPicker("#colour-picker", {
     width: 600,
-    borderWidth: 2,
+    borderWidth: 8,
     borderColor: 'rgb(255, 255, 255)',
     color: "rgb(255, 255, 255)",
     id: "picker-wheel",
