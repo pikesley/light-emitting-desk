@@ -1,6 +1,9 @@
 var colourPicker = new iro.ColorPicker("#colour-picker", {
     width: 600,
+    borderWidth: 2,
+    borderColor: 'rgb(255, 255, 255)',
     color: "rgb(255, 255, 255)",
+    id: "picker-wheel",
     layout: [
         {
             component: iro.ui.Wheel,

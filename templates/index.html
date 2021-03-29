@@ -10,33 +10,36 @@
     <body>
         {% include 'includes/javascript.html' %}
 
-        <header>
-            <h1>
-                {{title}}
-            </h1>
-        </header>
+        <div class="grid">
+            <header>
+                <h1>
+                    {{title}}
+                </h1>
+            </header>
 
-        <main>
-            <ul id="mode-picker">
+            <ul id="mode-picker" class="picker">
                 {% for mode in modes %}
                 <li id="{{ mode['name'] }}-select">
                     <a href='#'
                        class="shake-little mode-select"
                        title="{{ mode['description'] }}"
-                       onclick="setMode('{{ mode['name'] }}')">{{ mode['display-name']
+                       onclick="setMode('{{ mode['name'] }}')">{{
+                        mode['display-name']
                         }}</a>
                 </li>
                 {% endfor %}
             </ul>
 
-            <div id="colour-picker"></div>
-        </main>
-        <footer>
-            <button class="button"
-                    onclick="switchOff()">
-                Off
-            </button>
-        </footer>
+            <div id="colour-picker" class="picker">
+            </div>
+
+            <footer>
+                <button class="button"
+                        onclick="switchOff()">
+                    Off
+                </button>
+            </footer>
+        </div>
     </body>
 
 </html>

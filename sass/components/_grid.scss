@@ -1,0 +1,34 @@
+@use 'variables';
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow: auto; // no scrollbar
+}
+
+// https://css-tricks.com/snippets/css/css-grid-starter-layouts/
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    align-items: center;
+    justify-items: center;
+    height: 100vh;
+}
+
+footer,
+header {
+    grid-column: 1 / 3;
+}
+
+@media all and (max-width: 1080px) {
+    .grid {
+      grid-template-rows: 0.5fr 1fr 1fr 1fr;
+    }
+
+    .picker {
+        grid-column: 1 / 3;
+    }
+}

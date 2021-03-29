@@ -14,9 +14,9 @@ body {
 
 .button {
     background-color: $primary;
-    color: $tertiary;
+    color: lighten($primary, 20%);
 
     &:hover {
-        color: $secondary;
+        color: darken($primary, 20%);
     }
 }

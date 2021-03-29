@@ -3,6 +3,10 @@
 @use 'components/grid';
 @use 'components/fonts';
 
+body {
+    background-image: url("/static/images/tile.png");
+}
+
 h1 {
     font-size: 6rem;
 }
@@ -21,9 +25,6 @@ h1 {
         }
     }
 
-    padding-top: variables.$shim;
-    padding-bottom: variables.$shim;
-
     a {
         text-decoration: none;
         color: inherit;
@@ -38,4 +39,8 @@ h1 {
     font-size: 2rem;
     font-weight: bold;
     border: none;
+}
+
+#colour-picker {
+    cursor: pointer;
 }

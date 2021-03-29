@@ -15,7 +15,7 @@ modes:
     description: Light each sector from the centre-out
 
   - name: sweep
-    display-name: Sweep across
+    display-name: Sweep
     description: Sweep across the whole desk, alternately left-right and right-left
 
   - name: converge

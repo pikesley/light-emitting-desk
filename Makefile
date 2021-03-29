@@ -55,7 +55,7 @@ clean:
 	@find . -depth -name ".coverage.*" -exec rm {} \;
 
 sass: docker-only
-	sass --watch static/css/
+	sass --watch sass:static/css/
 
 dev-install: docker-only
 	python -m pip install -r requirements-dev.txt
