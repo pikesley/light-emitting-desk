@@ -10,6 +10,9 @@ build: laptop-only
 	docker build \
 		--tag ${ID} .
 
+docker-compose:
+	docker-compose up
+
 run: laptop-only
 	docker-compose exec rgb-desk bash
 
@@ -28,10 +31,13 @@ format: docker-only black isort
 lint: docker-only
 	python -m pylama
 
-test: python-tests nightwatch-tests
+test: python-tests jasmine-ci nightwatch-tests
+
+jasmine-ci: docker-only
+	@MOZ_HEADLESS=true jasmine ci -b firefox | grep -v "Mozilla/5.0"
 
 nightwatch-tests: docker-only
-	nightwatch
+	@nightwatch
 
 python-tests: docker-only flush-redis
 	python -m pytest \
@@ -52,6 +58,8 @@ clean:
 	@find . -depth -name __pycache__ -exec rm -fr {} \;
 	@find . -depth -name .pytest_cache -exec rm -fr {} \;
 	@find . -depth -name ".coverage.*" -exec rm {} \;
+	@find . -depth -name reports -exec rm -fr {} \;
+	@find . -depth -name geckodriver.log -exec rm {} \;
 
 sass: docker-only
 	sass --watch sass:static/css/
@@ -69,6 +77,7 @@ nginx:
 push-code: docker-only clean
 	rsync --archive \
 		  --verbose \
+		  --exclude node_modules \
 		  /opt/${PROJECT} \
 		  pi@${PIHOST}:
 

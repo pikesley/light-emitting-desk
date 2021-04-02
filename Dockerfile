@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y \
                                             curl \
                                             redis \
                                             nginx \
-                                            nodejs
+                                            nodejs \
+                                            firefox-esr
 
 RUN npm install
 
