@@ -2,13 +2,18 @@ FROM python:3.7
 
 ENV SASS_VERSION 1.32.8
 
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+
 RUN apt-get update && apt-get install -y \
                                             vim \
                                             make \
                                             rsync \
                                             curl \
                                             redis \
-                                            nginx
+                                            nginx \
+                                            nodejs
+
+RUN npm install
 
 RUN cd /tmp && \
     curl \

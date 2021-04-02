@@ -11,17 +11,7 @@ build: laptop-only
 		--tag ${ID} .
 
 run: laptop-only
-	docker run \
-		--interactive \
-		--tty \
-		--name ${PROJECT} \
-		--volume $(shell pwd):/opt/${PROJECT} \
-		--volume ${HOME}/.ssh:/root/.ssh \
-		--publish 5000:5000 \
-		--publish 8888:8888 \
-		--publish 8000:80 \
-		--rm \
-		${ID} bash
+	docker-compose exec rgb-desk bash
 
 # Docker targets
 
@@ -38,7 +28,12 @@ format: docker-only black isort
 lint: docker-only
 	python -m pylama
 
-test: docker-only flush-redis
+test: python-tests nightwatch-tests
+
+nightwatch-tests: docker-only
+	nightwatch
+
+python-tests: docker-only flush-redis
 	python -m pytest \
 		--random-order \
 		--verbose \

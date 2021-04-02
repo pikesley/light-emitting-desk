@@ -1,0 +1,28 @@
+{
+    "src_folders": [
+        "./spec/javascripts/nightwatch"
+    ],
+    "output_folder": "reports",
+    "custom_commands_path": "",
+    "custom_assertions_path": "",
+    "page_objects_path": "",
+    "globals_path": "",
+    "selenium": {
+        "start_process": false
+    },
+    "test_settings": {
+        "default": {
+            "selenium_port": 4444,
+            "selenium_host": "selenium",
+            "desiredCapabilities": {
+                "browserName": "chrome",
+                "chromeOptions": {
+                    "args": [
+                        "--no-sandbox"
+                    ]
+                },
+                "acceptSslCerts": true
+            }
+        }
+    }
+}
