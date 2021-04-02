@@ -11,3 +11,4 @@ gunicorn
 Flask
 flask-cors
 redis
+jasmine

@@ -3,9 +3,9 @@ from unittest.mock import patch
 from rgb_desk.utils import (gamma_correct, random_colour, scale_colour,
                             total_pixels)
 
-fake_conf = {"segments": {"back-of-desk": [[0, 47]], "monitor": [[76, 99], [48, 75]]}}
+fake_conf = {"sectors": {"back-of-desk": [[0, 47]], "monitor": [[76, 99], [48, 75]]}}
 inverted_conf = {
-    "segments": {"back-of-desk": [[0, 47]], "monitor": [[99, 76], [75, 44]]}
+    "sectors": {"back-of-desk": [[0, 47]], "monitor": [[99, 76], [75, 44]]}
 }
 
 

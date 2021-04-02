@@ -4,6 +4,15 @@
     <head>
         {% include 'includes/imports.html' %}
 
+        <script src="{{ url_for('static', filename='js/rgb-desk.js') }}"></script>
+
+        <link rel="stylesheet"
+              type="text/css"
+              href="{{ url_for('static', filename='css/styles.css') }}">
+
+        <link rel="shortcut icon"
+              href="{{ url_for('static', filename='favicon.ico') }}">
+
         <title>{{title}}</title>
     </head>
 
@@ -11,18 +20,21 @@
         {% include 'includes/javascript.html' %}
 
         <div class="grid">
+
             <header>
                 <h1>
                     {{title}}
                 </h1>
             </header>
 
-            <ul id="mode-picker" class="picker">
+
+            <ul id="mode-picker"
+                class="picker">
                 {% for mode in modes %}
-                <li id="{{ mode['name'] }}-select">
+                <li id="{{ mode['name'] }}-select"
+                    data-tooltip="{{ mode['description'] }}"
+                    class="has-tooltip-right mode-select">
                     <a href='#'
-                       class="shake-little mode-select"
-                       title="{{ mode['description'] }}"
                        onclick="setMode('{{ mode['name'] }}')">{{
                         mode['display-name']
                         }}</a>
@@ -30,7 +42,8 @@
                 {% endfor %}
             </ul>
 
-            <div id="colour-picker" class="picker">
+            <div id="colour-picker"
+                 class="picker">
             </div>
 
             <footer>
@@ -39,7 +52,9 @@
                     Off
                 </button>
             </footer>
-        </div>
+
+        </div> <!-- close grid -->
+
     </body>
 
 </html>

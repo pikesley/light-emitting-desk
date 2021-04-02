@@ -1,4 +1,4 @@
-segments:
+sectors:
   back-of-desk:
     - [0, 93]
 
@@ -30,8 +30,33 @@ modes:
     display-name: Direct
     description: Just switch all the lights to the given colour
 
-light-mode-defaults:
-  delay: 0.01  # default interval for light modes
+api:
+  mandatory-fields:
+    - colour
+    - mode
+
+  optional-fields:  # with defaults
+    delay: 0.01
+    direction: forwards
 
 worker:
   interval: 0.1
+
+web:
+  imports:
+    js:
+      - name: jQuery
+        url: https://code.jquery.com/jquery-3.6.0.min.js
+        hash: sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=
+
+      - name: iro.js
+        url: https://cdn.jsdelivr.net/npm/@jaames/iro@5
+
+    css:
+      - name: Bulma
+        url: https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css
+        hash: sha512-byErQdWdTqREz6DLAA9pCnLbdoGGhXfU6gm1c8bkf7F51JVmUBlayGe2A31VpXWQP+eiJ3ilTAZHCR3vmMyybA==
+
+      - name: Bulma Tooltip
+        url: https://cdn.jsdelivr.net/npm/bulma-tooltip@3.0.2/dist/css/bulma-tooltip.min.css
+        hash: sha256-XHnRKkCzUyquwVn6oLhf09UA4ZJGd2G3HgvaD9BPMHY=

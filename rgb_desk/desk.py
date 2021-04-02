@@ -1,34 +1,29 @@
 import re
-from collections import OrderedDict
 
 import rgb_desk.light_modes
-from rgb_desk.segment import Segment
 from rgb_desk.utils import get_neopixels
 
 
 class Desk:
     """Class representing a NeoPixelled desk."""
 
-    def __init__(self, segment_data):
+    def __init__(self, sector_data):
         """Construct."""
-        self.pixels = get_neopixels(segment_data)
-        self.segments = OrderedDict()
+        self.pixels = get_neopixels(sector_data)
+
         self.sectors = []
+        self.indeces = []
 
-        for name, limits in segment_data.items():
-            self.segments[name] = Segment(name, limits, self)
-
+        for _, limits in sector_data.items():
             for pair in limits:
                 start, end = pair
+                step = offset = 1
                 if start > end:
-                    end, start = pair
-                self.sectors.append(list(range(start, end + 1)))
+                    step = offset = -1
 
-        self.sectors.sort()
-
-        self.indeces = []
-        for _, segment in self.segments.items():
-            self.indeces.extend(segment.indeces)
+                sector = list(range(start, end + offset, step))
+                self.sectors.append(sector)
+                self.indeces.extend(sector)
 
     def __setitem__(self, index, colour):
         """Override `x[i] = 'foo'`."""

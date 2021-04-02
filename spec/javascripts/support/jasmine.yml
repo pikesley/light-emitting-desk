@@ -1,0 +1,14 @@
+    src_files:
+      - https://code.jquery.com/jquery-3.6.0.min.js
+      - https://cdnjs.cloudflare.com/ajax/libs/jasmine-ajax/4.0.0/mock-ajax.min.js
+      - static/js/*.js
+
+    stylesheets:
+
+    helpers:
+      - "helpers/**/*.js"
+
+    spec_files:
+      - "**/*[Ss]pec.js"
+
+    spec_dir: spec/javascripts

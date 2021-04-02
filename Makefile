@@ -18,6 +18,7 @@ run: laptop-only
 		--volume $(shell pwd):/opt/${PROJECT} \
 		--volume ${HOME}/.ssh:/root/.ssh \
 		--publish 5000:5000 \
+		--publish 8888:8888 \
 		--publish 8000:80 \
 		--rm \
 		${ID} bash
@@ -45,6 +46,9 @@ test: docker-only flush-redis
 		--failed-first \
 		--exitfirst \
 		--cov
+
+jasmine: docker-only
+	jasmine server --host 0.0.0.0
 
 flush-redis: docker-only redis
 	redis-cli flushall

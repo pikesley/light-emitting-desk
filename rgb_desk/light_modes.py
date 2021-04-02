@@ -13,7 +13,7 @@ class LightMode:
         self.desk = desk
         self.colour = colour
 
-        self.args = conf["light-mode-defaults"]
+        self.args = conf["api"]["optional-fields"]
         if args:
             self.args = {**self.args, **args}
 

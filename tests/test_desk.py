@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, call, patch
 
 with patch.dict(
     "rgb_desk.utils.conf",
-    {"segments": {"back-of-desk": [[0, 47]], "monitor": [[53, 60], [48, 52]]}},
+    {"sectors": {"back-of-desk": [[0, 47]], "monitor": [[53, 60], [48, 52]]}},
     clear=True,
 ):
     from rgb_desk.desk import Desk
@@ -14,18 +14,17 @@ class TestDesk(TestCase):
 
     @patch.dict(
         "rgb_desk.utils.conf",
-        {"segments": {"back-of-desk": [[0, 47]], "monitor": [[53, 60], [48, 52]]}},
+        {"sectors": {"back-of-desk": [[0, 47]], "monitor": [[53, 60], [48, 52]]}},
         clear=True,
     )
     def test_constructor(self):
         """Test it gets the right data."""
-        desk = Desk({"back-of-desk": [[0, 47]], "monitor": [[53, 60], [48, 52]]})
-        self.assertCountEqual(desk.segments.keys(), ["back-of-desk", "monitor"])
+        desk = Desk({"back-of-desk": [[0, 7]], "monitor": [[13, 11], [8, 10]]})
 
-        seg = desk.segments["monitor"]
         self.assertEqual(
-            seg.indeces, [53, 54, 55, 56, 57, 58, 59, 60, 48, 49, 50, 51, 52]
+            desk.sectors, [[0, 1, 2, 3, 4, 5, 6, 7], [13, 12, 11], [8, 9, 10]]
         )
+        self.assertEqual(desk.indeces, [0, 1, 2, 3, 4, 5, 6, 7, 13, 12, 11, 8, 9, 10])
 
     def test_setting_lights(self):
         """Test we can set a light to a colour."""

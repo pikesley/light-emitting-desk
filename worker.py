@@ -15,9 +15,9 @@ class Worker:
         """Construct."""
         self.redis = redis.Redis()
 
-        desk_conf = conf["segments"]
-        if "TEST_SEGMENTS" in os.environ:  # nocov
-            desk_conf = json.loads(os.environ["TEST_SEGMENTS"])
+        desk_conf = conf["sectors"]
+        if "TEST_SECTORS" in os.environ:  # nocov
+            desk_conf = json.loads(os.environ["TEST_SECTORS"])
 
         self.desk = Desk(desk_conf)
 
