@@ -44,7 +44,6 @@ def set_colour():
     app.redis.rpush("jobs", json.dumps(app.data))
 
     app.redis.set("colours/desk", json.dumps(app.data["colour"]))
-    # app.redis.set("mode", app.data["mode"])
     return {"colour": app.data["colour"], "status": "OK"}
 
 
@@ -57,17 +56,6 @@ def current_desk_colour():
 
     except TypeError:
         return {"error": "no data for that"}, 404
-
-
-# @app.route("/desk/mode", methods=["GET"])
-# def current_mode():
-#     """Return the current mode."""
-#     try:
-#         mode = app.redis.get("mode").decode()
-#         return {"mode": mode, "status": "OK"}
-
-#     except AttributeError:
-#         return {"error": "no data for that"}, 404
 
 
 # validators
