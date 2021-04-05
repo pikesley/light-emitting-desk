@@ -66,6 +66,7 @@ sass: docker-only
 
 dev-install: docker-only
 	python -m pip install -r requirements-dev.txt
+	npm install
 
 redis:
 	service redis-server start

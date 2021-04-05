@@ -1,0 +1,10 @@
+{
+  "name": "light-emitting-desk",
+  "version": "0.1.0",
+  "devDependencies": {
+    "geckodriver": "^1.22.3",
+    "nightwatch": "^1.6.1"
+  },
+  "author": "pikesley",
+  "license": "MIT"
+}
