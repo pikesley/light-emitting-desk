@@ -78,6 +78,7 @@ push-code: docker-only clean
 	rsync --archive \
 		  --verbose \
 		  --exclude node_modules \
+		  --exclude assets \
 		  /opt/${PROJECT} \
 		  pi@${PIHOST}:
 
