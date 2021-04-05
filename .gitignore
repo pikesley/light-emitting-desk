@@ -1,7 +1,5 @@
 .coverage
 .sass-cache
-*.css
-*.map
 geckodriver.log
 node_modules/
 reports/
