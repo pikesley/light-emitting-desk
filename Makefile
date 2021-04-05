@@ -84,7 +84,6 @@ push-code: docker-only clean
 # Pi targets
 
 setup: pi-only set-python apt-installs install system-install virtualhost
-	sudo reboot
 
 install: pi-only
 	sudo python -m pip install -r requirements.txt
