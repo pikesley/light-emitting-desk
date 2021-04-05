@@ -2,18 +2,18 @@ from unittest import TestCase
 from unittest.mock import MagicMock, call, patch
 
 with patch.dict(
-    "rgb_desk.utils.conf",
+    "light_emitting_desk.utils.conf",
     {"sectors": {"back-of-desk": [[0, 47]], "monitor": [[53, 60], [48, 52]]}},
     clear=True,
 ):
-    from rgb_desk.desk import Desk
+    from light_emitting_desk.desk import Desk
 
 
 class TestDesk(TestCase):
     """Test the Desk."""
 
     @patch.dict(
-        "rgb_desk.utils.conf",
+        "light_emitting_desk.utils.conf",
         {"sectors": {"back-of-desk": [[0, 47]], "monitor": [[53, 60], [48, 52]]}},
         clear=True,
     )

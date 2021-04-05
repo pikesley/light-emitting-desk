@@ -1,10 +1,10 @@
 version: "3.9"
 
 services:
-  rgb-desk:
-    image: pikesley/rgb-desk
+  light-emitting-desk:
+    image: pikesley/light-emitting-desk
     volumes:
-      - .:/opt/rgb-desk
+      - .:/opt/light-emitting-desk
       - /Users/sam/.ssh:/root/.ssh
     ports:
       - 5000:5000
@@ -12,10 +12,10 @@ services:
       - 8000:80
     command: tail -f /dev/null
 
-  rgb-desk-server:
-    image: pikesley/rgb-desk
+  light-emitting-desk-server:
+    image: pikesley/light-emitting-desk
     volumes:
-      - .:/opt/rgb-desk
+      - .:/opt/light-emitting-desk
     ports:
       - 5050:5050
     command: bash -c "make redis && gunicorn -b 0.0.0.0:5050 webserver:app"

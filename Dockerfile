@@ -28,7 +28,7 @@ RUN cd /tmp && \
 
 RUN pip install --upgrade pip
 
-ENV PROJECT rgb-desk
+ENV PROJECT light-emitting-desk
 
 COPY docker-config/bashrc /root/.bashrc
 

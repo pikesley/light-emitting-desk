@@ -4,7 +4,7 @@ After=redis-server
 
 [Service]
 User=pi
-WorkingDirectory=/home/pi/rgb-desk/
+WorkingDirectory=/home/pi/light-emitting-desk/
 
 ExecStartPre=/bin/bash -c "\
     (while ! nc -z -v -w1 localhost 6379 > /dev/null; \

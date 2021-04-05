@@ -1,5 +1,5 @@
-from rgb_desk.light_modes import (divergence_sequence_for_sectors,
-                                  pairs_from_list)
+from light_emitting_desk.light_modes import (divergence_sequence_for_sectors,
+                                             pairs_from_list)
 
 
 def test_pairs_from_list():

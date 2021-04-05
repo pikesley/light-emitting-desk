@@ -1,6 +1,6 @@
 PROJECT = $(shell basename $$(pwd))
 ID = pikesley/${PROJECT}
-PIHOST = rgb-desk.local
+PIHOST = light-emitting-desk.local
 
 default: all
 
@@ -14,7 +14,7 @@ docker-compose:
 	docker-compose up
 
 run: laptop-only
-	docker-compose exec rgb-desk bash
+	docker-compose exec light-emitting-desk bash
 
 # Docker targets
 
@@ -34,7 +34,7 @@ lint: docker-only
 test: python-tests jasmine-ci nightwatch-tests
 
 jasmine-ci: docker-only
-	@MOZ_HEADLESS=true jasmine ci -b firefox | grep -v "Mozilla/5.0"
+	@MOZ_HEADLESS=true jasmine ci -b firefox | grep -v "Mozilla/5.0" | grep -v Warning
 
 nightwatch-tests: docker-only
 	@nightwatch

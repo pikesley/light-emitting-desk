@@ -2,7 +2,7 @@ import abc
 from random import shuffle
 from time import sleep
 
-from rgb_desk.utils import conf
+from light_emitting_desk.utils import conf
 
 
 class LightMode:

@@ -1,7 +1,7 @@
 import re
 
-import rgb_desk.light_modes
-from rgb_desk.utils import get_neopixels
+import light_emitting_desk.light_modes
+from light_emitting_desk.utils import get_neopixels
 
 
 class Desk:
@@ -51,7 +51,7 @@ class Desk:
 
 def get_class(name):
     """Turn a string into a ClassName."""
-    return getattr(rgb_desk.light_modes, to_camel_case(name))
+    return getattr(light_emitting_desk.light_modes, to_camel_case(name))
 
 
 def to_camel_case(snake_case):

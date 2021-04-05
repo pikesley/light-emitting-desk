@@ -9,6 +9,9 @@ sectors:
     - [145, 130]
     - [129, 112]
 
+  # under-desk:
+  #   - [198, 271]
+
 modes:
   - name: sector-diverge
     display-name: Diverge

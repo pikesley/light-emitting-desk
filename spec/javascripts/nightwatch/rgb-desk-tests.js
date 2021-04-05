@@ -3,7 +3,7 @@ const timeout = 10
 module.exports = {
     'Test setting mode': function (browser) {
         browser
-            .url('http://rgb-desk-server:5050')
+            .url('http://light-emitting-desk-server:5050')
             .waitForElementVisible('body', timeout)
 
             .click('#sweep-select')

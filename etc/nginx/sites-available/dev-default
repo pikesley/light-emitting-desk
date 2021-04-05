@@ -1,7 +1,7 @@
 server {
         listen 80 default_server;
 
-        root /opt/rgb-desk/static/;
+        root /opt/light-emitting-desk/static/;
 
         index index.html;
 

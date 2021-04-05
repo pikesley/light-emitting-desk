@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from rgb_desk.desk import Desk
-from rgb_desk.light_modes import SpotFill
+from light_emitting_desk.desk import Desk
+from light_emitting_desk.light_modes import SpotFill
 
 
 class TestSpotFill(TestCase):
