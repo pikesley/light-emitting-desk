@@ -1,6 +1,6 @@
 PROJECT = $(shell basename $$(pwd))
 ID = pikesley/${PROJECT}
-PIHOST = light-emitting-desk.local
+PIHOST = led.local
 
 default: all
 
