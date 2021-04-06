@@ -61,7 +61,7 @@ let saveMode = function (mode) {
 
 let loadMode = function () {
     if (!window.localStorage['mode']) {
-        saveMode('diverge')
+        saveMode(defaultMode)
     }
     return window.localStorage['mode']
 }

@@ -38,8 +38,9 @@ describe("flipDirection", function () {
 
 describe("loadMode", function () {
   it("loads the mode", function () {
+    defaultMode = "some-mode"
     window.localStorage.clear()
-    expect(loadMode()).toEqual('diverge')
+    expect(loadMode()).toEqual('some-mode')
   })
 })
 
