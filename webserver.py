@@ -25,7 +25,7 @@ def index():
     if request.accept_mimetypes["text/html"]:
         return render_template(
             "index.html",
-            title="RGB Desk",
+            title="LED",
             imports=conf["web"]["imports"],
             modes=conf["modes"],
         )
