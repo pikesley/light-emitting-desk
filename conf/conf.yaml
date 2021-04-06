@@ -17,6 +17,10 @@ modes:
     display-name: Diverge
     description: Light each sector from the centre-out
 
+  - name: spot-fill
+    display-name: Spot fill
+    description: Light random LEDs one-at-a time until they're all set
+
   - name: sweep
     display-name: Sweep
     description: Sweep across the whole desk, alternately left-right and right-left
@@ -24,10 +28,6 @@ modes:
   - name: converge
     display-name: Converge
     description: Light from both ends towards the middle
-
-  - name: spot-fill
-    display-name: Spot fill
-    description: Light random LEDs one-at-a time until they're all set
 
   - name: caterpillar
     display-name: Caterpillar
