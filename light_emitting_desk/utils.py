@@ -51,6 +51,15 @@ def scale_colour(colour, factor):
     return scaled
 
 
+def reorder_sequence_to_indeces(sequence, indeces):
+    """Map a sequence to some arbitrary indeces."""
+    reordered = []
+    for index in indeces:
+        reordered.append(sequence[index])
+
+    return reordered
+
+
 class FakeDesk(list):
     """Fake Desk for testing."""
 

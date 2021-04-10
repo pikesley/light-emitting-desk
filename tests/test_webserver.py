@@ -125,6 +125,47 @@ class TestWebserver(TestCase):
             {"error": "`two days` is not a valid delay interval"},
         )
 
+    def test_with_non_number_caterpillar_length(self):
+        """Test it rejects a non-numeric `caterpillar-length` parameter."""
+        client = app.test_client()
+        data = json.dumps(
+            {
+                "colour": [10, 20, 30],
+                "mode": "caterpillar",
+                "caterpillar-length": "seven",
+            }
+        )
+        response = client.post("/desk/light", headers=headers, data=data)
+
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(
+            json.loads(response.data),
+            {
+                "error": (
+                    "`caterpillar-length` must be something "
+                    "that can be cast to an `int`"
+                )
+            },
+        )
+
+    def test_with_out_of_range_caterpillar_length(self):
+        """Test it rejects an out-of-range `caterpillar-length` parameter."""
+        client = app.test_client()
+        data = json.dumps(
+            {
+                "colour": [10, 20, 30],
+                "mode": "caterpillar",
+                "caterpillar-length": 21,
+            }
+        )
+        response = client.post("/desk/light", headers=headers, data=data)
+
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(
+            json.loads(response.data),
+            {"error": ("`caterpillar-length` must be a number between 1 and 2")},
+        )
+
     def test_get_colour(self):
         """Test it records and returns the colour."""
         client = app.test_client()

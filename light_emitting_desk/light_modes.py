@@ -2,7 +2,7 @@ import abc
 from random import shuffle
 from time import sleep
 
-from light_emitting_desk.utils import conf
+from light_emitting_desk.utils import conf, reorder_sequence_to_indeces
 
 
 class LightMode:
@@ -98,6 +98,32 @@ class DirectSwitch(LightMode):
         self.desk.fill(self.colour)
 
 
+class Caterpillar(LightMode):
+    """Caterpillar across the desk one pixel at a time."""
+
+    def run(self):
+        """Do the work."""
+        starting_colour = self.desk[0]  # assume it's all one colour
+
+        invert = False
+        if "direction" in self.args:
+            if self.args["direction"] == "backwards":
+                invert = True
+
+        for frame in caterpillar_iterator(
+            starting_colour,
+            self.colour,
+            self.args["caterpillar-length"],
+            self.desk.indeces,
+            invert,
+        ):
+            for index, light in enumerate(frame):
+                self.desk[index] = light
+
+            self.show()
+            self.wait()
+
+
 ###
 
 
@@ -138,3 +164,42 @@ def divergence_sequence_for_sectors(sectors):
 
     # sort the member lists
     return list(map(sorted, sequence))
+
+
+def sequence_for_caterpillar(old, new, strip_length, cat_length):
+    """Generate a sequence for a caterpillar across the desk."""
+    frame = [old] * strip_length
+    sequence = [frame.copy()]
+
+    while not all([item == new for item in sequence[-1]]):
+        next_set = caterpillar_sub_sequence(frame, new, cat_length)
+        sequence.extend(next_set)
+        frame = next_set[-1]
+
+    return sequence
+
+
+def caterpillar_sub_sequence(frame, new, cat_length):
+    """Generate the steps for a given frame."""
+    sub_sequence = []
+
+    for index, _ in enumerate(frame):
+        current = frame.copy()
+        current[index] = new
+        for cell in range(cat_length):
+            tail_index = index - cell
+            if tail_index >= 0:
+                current[tail_index] = new
+
+        sub_sequence.append(current)
+
+        if all([item == new for item in current[index:]]):
+            return sub_sequence
+
+
+def caterpillar_iterator(old, new, cat_length, indeces, invert=False):
+    """Iterate over the caterpillar-sequence."""
+    for item in sequence_for_caterpillar(old, new, len(indeces), cat_length):
+        if invert:
+            item = list(reversed(item))
+        yield reorder_sequence_to_indeces(item, indeces)

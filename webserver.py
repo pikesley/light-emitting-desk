@@ -83,7 +83,7 @@ def validate_request(req):
 
     for field, default in optional_fields.items():
         try:
-            invalid = globals()[f"invalid_{field}"](data[field])
+            invalid = globals()[f"invalid_{field.replace('-', '_')}"](data[field])
             if invalid:
                 data["invalid"] = invalid
                 return data
@@ -131,6 +131,22 @@ def invalid_direction(direction):
 
     if direction not in valid_directions:
         return f"`direction` must be one of [{', '.join(valid_directions)}]"
+
+    return False
+
+
+def invalid_caterpillar_length(length):
+    """Validate the `caterpillar-length` parameter."""
+    try:
+        length = int(length)
+    except ValueError:
+        return "`caterpillar-length` must be something that can be cast to an `int`"
+
+    if not 1 <= length <= len(app.desk.indeces):
+        return (
+            "`caterpillar-length` must be a number between "
+            f"1 and {len(app.desk.indeces)}"
+        )
 
     return False
 
