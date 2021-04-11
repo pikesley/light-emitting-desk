@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from light_emitting_desk.utils import (gamma_correct, random_colour,
+                                       reorder_sequence_to_indeces,
                                        scale_colour, total_pixels)
 
 fake_conf = {"sectors": {"back-of-desk": [[0, 47]], "monitor": [[76, 99], [48, 75]]}}
@@ -63,3 +64,22 @@ def test_scale_colour():
 
     for colour, factor, expectation in cases:
         assert scale_colour(colour, factor) == expectation
+
+
+def test_reorder_sequence_to_indeces():
+    """Test it reorders a sequence for our indeces."""
+    indeces = [0, 1, 2, 7, 6, 5, 3, 4, 8, 9]
+    sequence = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+
+    assert reorder_sequence_to_indeces(sequence, indeces) == [
+        "a",
+        "b",
+        "c",
+        "h",
+        "g",
+        "f",
+        "d",
+        "e",
+        "i",
+        "j",
+    ]

@@ -9,8 +9,8 @@ sectors:
     - [145, 130]
     - [129, 112]
 
-  # under-desk:
-  #   - [198, 271]
+  under-desk:
+    - [198, 271]
 
 modes:
   - name: sector-diverge
@@ -29,6 +29,10 @@ modes:
     display-name: Spot fill
     description: Light random LEDs one-at-a time until they're all set
 
+  - name: caterpillar
+    display-name: Caterpillar
+    description: March caterpillars across the desk until it's full
+
   - name: direct-switch
     display-name: Direct
     description: Just switch all the lights to the given colour
@@ -41,6 +45,7 @@ api:
   optional-fields:  # with defaults
     delay: 0.01
     direction: forwards
+    caterpillar-length: 32
 
 worker:
   interval: 0.1

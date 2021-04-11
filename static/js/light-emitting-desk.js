@@ -15,7 +15,7 @@ let switchOff = function () {
 let setColour = function (colour) {
     postColourChange([colour.red, colour.green, colour.blue])
 
-    if (loadMode() == "sweep") {
+    if (["sweep", "caterpillar"].includes(loadMode())) {
         flipDirection()
     }
 }
