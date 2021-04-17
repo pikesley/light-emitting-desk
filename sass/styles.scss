@@ -3,16 +3,13 @@
 @use 'components/grid';
 @use 'components/fonts';
 
-body {
-    background-image: url("/static/images/tile.png");
-}
-
 h1 {
     font-size: 6rem;
 }
 
 h2 {
-    font-size: 3rem;
+    font-size: 4rem;
+    text-align: center;
 }
 
 #mode-picker {
@@ -40,9 +37,9 @@ h2 {
 }
 
 .button {
-    font-size: 2rem;
+    // font-size: 2rem;
     font-weight: bold;
-    border: none;
+    // border: none;
 }
 
 #colour-picker {

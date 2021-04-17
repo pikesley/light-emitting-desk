@@ -8,7 +8,8 @@
             let defaultMode = "{{ modes[0]['name'] }}"
         </script>
 
-        <script src="{{ url_for('static', filename='js/light-emitting-desk.js') }}"></script>
+        <script
+                src="{{ url_for('static', filename='js/light-emitting-desk.js') }}"></script>
 
         <link rel="stylesheet"
               type="text/css"
@@ -23,42 +24,45 @@
     <body>
         {% include 'includes/javascript.html' %}
 
-        <div class="grid">
+        <main>
+            <div id="colour-picker"></div>
+        </main>
 
-            <header>
-                <h1>
-                    {{title}}
-                </h1>
-            </header>
+        <button class="button is-outlined is-rounded"
+                id="off-switch"
+                onclick="switchOff()">
+            Off
+        </button>
 
+        <button class="button is-outlined is-rounded"
+                id="mode-modal-toggle"
+                onclick="toggleModal()">
+            Mode select
+        </button>
 
-            <ul id="mode-picker"
-                class="picker">
-                {% for mode in modes %}
-                <li id="{{ mode['name'] }}-select"
-                    data-tooltip="{{ mode['description'] }}"
-                    class="has-tooltip-right mode-select">
-                    <a href='#'
-                       onclick="setMode('{{ mode['name'] }}')">{{
-                        mode['display-name']
-                        }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-
-            <div id="colour-picker"
-                 class="picker">
+        <div class="modal"
+             id="mode-modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <h2>Lighting modes</h2>
+                <ul id="mode-picker"
+                    class="picker">
+                    {% for mode in modes %}
+                    <li id="{{ mode['name'] }}-select"
+                        class="mode-select">
+                        <a href='#'
+                           onclick="setMode('{{ mode['name'] }}')">{{
+                            mode['display-name']
+                            }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
+            <button class="modal-close is-large"
+                    aria-label="close"
+                    onclick="toggleModal()"></button>
 
-            <footer>
-                <button class="button"
-                        onclick="switchOff()">
-                    Off
-                </button>
-            </footer>
-
-        </div> <!-- close grid -->
-
+        </div>
     </body>
 
 </html>

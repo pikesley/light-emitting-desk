@@ -41,10 +41,16 @@ def set_colour():
     if "invalid" in app.data:
         return {"error": app.data["invalid"]}, 422
 
-    app.redis.rpush("jobs", json.dumps(app.data))
+    return enqueue_and_return(app.data)
 
-    app.redis.set("colours/desk", json.dumps(app.data["colour"]))
-    return {"colour": app.data["colour"], "status": "OK"}
+
+@app.route("/desk/off", methods=["POST"])
+def switch_off():
+    """Instantly turn it all off."""
+    app.redis.flushall()
+    colour = [0, 0, 0]
+    app.data = {"colour": colour, "mode": "sector-diverge"}
+    return enqueue_and_return(app.data)
 
 
 @app.route("/desk/colour", methods=["GET"])
@@ -56,6 +62,14 @@ def current_desk_colour():
 
     except TypeError:
         return {"error": "no data for that"}, 404
+
+
+def enqueue_and_return(data):
+    """Light the lights."""
+    app.redis.rpush("jobs", json.dumps(data))
+
+    app.redis.set("colours/desk", json.dumps(data["colour"]))
+    return {"colour": data["colour"], "status": "OK"}
 
 
 # validators

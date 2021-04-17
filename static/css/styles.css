@@ -1,15 +1,16 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=New+Tegomin");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat");
 body {
-  color: #fa8100;
+  color: #7f7f7f;
+  background-color: #7f7f7f;
+  background-image: url("/static/images/checkboard-dark.png");
 }
 
 .button {
-  background-color: #fa8100;
-  color: #ffb361;
+  color: #b2b2b2;
 }
 .button:hover {
-  color: #944c00;
+  color: #b2b2b2 !important;
 }
 
 * {
@@ -20,40 +21,36 @@ html {
   overflow: auto;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
+main {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
-footer,
-header {
-  grid-column: 1/3;
+#mode-modal-toggle,
+#off-switch {
+  position: absolute;
+  top: 1rem;
 }
 
-@media all and (max-width: 1080px) {
-  .grid {
-    grid-template-rows: 0.5fr 1fr 1fr 1fr;
-  }
-
-  .picker {
-    grid-column: 1/3;
-  }
+#mode-modal-toggle {
+  left: 1rem;
 }
+
+#off-switch {
+  right: 1rem;
+}
+
 body {
-  font-family: "New Tegomin";
+  font-family: "Montserrat";
   text-transform: lowercase;
 }
 
 .button {
-  font-family: "New Tegomin";
-}
-
-body {
-  background-image: url("/static/images/tile.png");
+  font-family: "Montserrat";
+  font-size: 1rem;
+  text-transform: lowercase;
 }
 
 h1 {
@@ -61,7 +58,8 @@ h1 {
 }
 
 h2 {
-  font-size: 3rem;
+  font-size: 4rem;
+  text-align: center;
 }
 
 #mode-picker {
@@ -82,13 +80,11 @@ h2 {
   color: inherit;
 }
 #mode-picker a:hover {
-  color: #944c00;
+  color: #b2b2b2;
 }
 
 .button {
-  font-size: 2rem;
   font-weight: bold;
-  border: none;
 }
 
 #colour-picker {

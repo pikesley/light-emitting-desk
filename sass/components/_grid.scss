@@ -8,27 +8,23 @@ html {
     overflow: auto; // no scrollbar
 }
 
-// https://css-tricks.com/snippets/css/css-grid-starter-layouts/
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
+main {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
-footer,
-header {
-    grid-column: 1 / 3;
+#mode-modal-toggle,
+#off-switch {
+    position: absolute;
+    top: variables.$shim;
 }
 
-@media all and (max-width: 1080px) {
-    .grid {
-      grid-template-rows: 0.5fr 1fr 1fr 1fr;
-    }
+#mode-modal-toggle {
+    left: variables.$shim;
+}
 
-    .picker {
-        grid-column: 1 / 3;
-    }
+#off-switch {
+    right: variables.$shim;
 }

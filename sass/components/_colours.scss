@@ -1,26 +1,16 @@
-// https://twitter.com/colorschemez/status/1375965842022658051
-// $butterscotch: rgb(251, 162, 56);
-// $terracotta: rgb(189, 83, 52);
-// $forestgreen: rgb(65, 129, 65);
-
-// $primary: $forestgreen;
-// $secondary: $terracotta;
-// $tertiary: $butterscotch;
-
-$orange: rgb(250, 129, 0);
-$primary: $orange;
-$hover: darken($primary, 20%);
+$primary:rgb(127, 127, 127);
+$hover: lighten($primary, 20%);
 
 body {
     color: $primary;
-    // background-color: $tertiary;
+    background-color: $primary;
+    background-image: url('/static/images/checkboard-dark.png');
 }
 
 .button {
-    background-color: $primary;
     color: lighten($primary, 20%);
 
     &:hover {
-        color: $hover;
+        color: $hover !important; // javascript cannot do this wtf
     }
 }

@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 with patch.dict(os.environ, {"TEST_SECTORS": json.dumps({"foo": [[0, 1]]})}):
     from webserver import app
+    from worker import Worker
 
 headers = {"Accept": "application/json", "Content-type": "application/json"}
 
@@ -23,6 +24,24 @@ class TestWebserver(TestCase):
         client = app.test_client()
         response = client.get("/", headers={"Accept": "text/html"})
         self.assertEqual(response.data.decode().split("\n")[0], "<!DOCTYPE HTML>")
+
+    def test_turning_off(self):
+        """Test turning it off."""
+        client = app.test_client()
+        worker = Worker()
+
+        # preload the queue
+        data = json.dumps({"colour": [123, 123, 0], "mode": "spot-fill"})
+        for _ in range(100):
+            client.post("/desk/light", headers=headers, data=data)
+
+        response = client.post("/desk/off", headers=headers)
+        worker.poll()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            json.loads(response.data), {"colour": [0, 0, 0], "status": "OK"}
+        )
 
     def test_with_no_data(self):
         """Test it rejects an empty payload."""

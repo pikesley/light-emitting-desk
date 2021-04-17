@@ -1,13 +1,3 @@
-describe("isBlack", function () {
-  it("knows when a colour is black", function () {
-    expect(isBlack([0, 0, 0])).toBe(true)
-  })
-
-  it("knows when a colour is not black", function () {
-    expect(isBlack([0, 255, 0])).toBe(false)
-  })
-})
-
 describe("loadDirection", function () {
   it("loads the default direction", function () {
     window.localStorage.clear()
@@ -64,13 +54,19 @@ describe("setColour", function () {
   })
 })
 
-describe("switchOff", function () {
-  it("turns off the lights", function () {
-    saveDirection('backwards')
-    setColour = jasmine.createSpy().and.callFake(setColour);
+describe("invertColour", function () {
+  it("inverts a colour", function () {
+    expect(invertColour([255, 255, 255])).toEqual([0, 0, 0])
+    expect(invertColour([0, 0, 0])).toEqual([255, 255, 255])
+    expect(invertColour([19, 102, 200])).toEqual([236, 153, 55])
+  })
+})
 
-    switchOff()
-
-    expect(setColour).toHaveBeenCalledWith({ red: 0, green: 0, blue: 0 })
+describe("isDark", function () {
+  it("knows if a colour is dark", function () {
+    expect(isDark([0, 0, 0])).toBe(true)
+    expect(isDark([255, 255, 255])).toBe(false)
+    expect(isDark([255, 0, 255])).toBe(false)
+    expect(isDark([0, 0, 127])).toBe(true)
   })
 })

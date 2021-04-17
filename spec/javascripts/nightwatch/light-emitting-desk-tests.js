@@ -6,6 +6,8 @@ module.exports = {
             .url('http://light-emitting-desk-server:5050')
             .waitForElementVisible('body', timeout)
 
+            .click('#mode-modal-toggle')
+
             .click('#sweep-select')
             .assert.cssClassPresent('#sweep-select', 'active')
             .assert.not.cssClassPresent('#sector-diverge-select', 'active')
